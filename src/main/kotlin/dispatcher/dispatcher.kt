@@ -52,7 +52,7 @@ fun main() {
              * Comando que devuelve un mensaje cuando se inicai el bot
              */
 
-            command("démarrer") {
+            command("start") {
 
                 val result = bot.sendMessage(chatId = ChatId.fromId(update.message!!.chat.id), text = "Gabacho asqueroso, iniciado")
 

@@ -21,7 +21,7 @@ fun main() {
                 println("${pollAnswer.user.username} has selected the option ${pollAnswer.optionIds.lastOrNull()} in the poll ${pollAnswer.pollId}")
             }
 
-            command("démarrer") {
+            command("start") {
 
                 val result = bot.sendMessage(chatId = ChatId.fromId(message.chat.id), text = "Gabacho asqueroso, iniciado")
 
