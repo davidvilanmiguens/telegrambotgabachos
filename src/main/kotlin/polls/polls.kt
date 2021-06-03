@@ -10,10 +10,13 @@ import com.github.kotlintelegrambot.dispatcher.pollAnswer
 import com.github.kotlintelegrambot.entities.ChatId
 import com.github.kotlintelegrambot.entities.polls.PollType.QUIZ
 import com.github.kotlintelegrambot.network.fold
-class polls() {
-    fun polls(){
-        bot {
-            token = miToken
+fun main() {
+    /**Instanciamos un objeto bot*/
+    val bot = bot {
+
+        /**Introducimos el token del bot*/
+        /**Introducimos el token del bot*/
+        token = Apikey.miToken
             dispatch {
 
 
@@ -82,5 +85,5 @@ class polls() {
             }
         }.startPolling()
 
-    }
+
 }

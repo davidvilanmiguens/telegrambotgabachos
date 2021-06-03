@@ -28,28 +28,17 @@ import com.github.kotlintelegrambot.network.fold
  *
  */
 
-class dispatcher() {
-    fun dispathcer(){
-        val bot = bot {
+fun main() {
+    val bot = bot {
 
-            token = Apikey.miToken //el token relaciona el programa con el bot
-            timeout = 30
-            logLevel = LogLevel.Network.Body
 
-            dispatch {
+        /**Introducimos el token del bot*/
+        token = Apikey.miToken
 
-                //aparece el mensaje al enviar un sticker
-                message(Filter.Sticker) {
-                    bot.sendMessage(ChatId.fromId(message.chat.id), text = "You have received an awesome sticker \\o/")
-                }
-                //aparece el mensaje cuando reenvias el mensaje del bot
-                message(Filter.Reply or Filter.Forward) {
 
-                    bot.sendMessage(
-                        ChatId.fromId(message.chat.id),
-                        text = "someone is replying or forwarding messages ..."
-                    )
-                }
+
+        /**El dispatch nos permite enviar información a Telegram para manejar el bot*/
+        dispatch {
                 /**
                  * @param démarrer Nombre del comando del bot
                  * Comando que devuelve un mensaje cuando se inicai el bot
@@ -327,7 +316,7 @@ class dispatcher() {
 
         bot.startPolling()
     }
-}
+
 fun generateUsersButton(): List<List<KeyboardButton>> {
     return listOf(
         listOf(KeyboardButton("Request location (not supported on desktop)", requestLocation = true)),
