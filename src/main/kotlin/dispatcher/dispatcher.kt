@@ -160,7 +160,7 @@ fun main() {
                  */
                 //sirve para crear dos botones
 
-            command("inlineButtons") {
+            command("inlinebuttons") {
                 val inlineKeyboardMarkup = InlineKeyboardMarkup.create(
                     //text texto del boton
                     listOf(InlineKeyboardButton.CallbackData(text = "Test Inline Button", callbackData = "testButton")),
@@ -180,7 +180,7 @@ fun main() {
             Envia tu direccion y número de teléfono, lamentablemente no lo hace n grupos, lo cual sería util para identificar y encontrar a los franceses que se escapan o se ocultan
             */
 
-            command("userButtons") {
+            command("userbuttons") {
                 val keyboardMarkup = KeyboardReplyMarkup(keyboard = generateUsersButton(), resizeKeyboard = true)
                 bot.sendMessage(
                     chatId = ChatId.fromId(message.chat.id),
@@ -194,7 +194,7 @@ fun main() {
              */
             //Poder mandar fotos con el bot
 
-            command("mediaGroup") {
+            command("mediagroup") {
                 bot.sendMediaGroup(
                     chatId = ChatId.fromId(message.chat.id),
                     mediaGroup = MediaGroup.from(
@@ -287,7 +287,7 @@ fun main() {
              * @param dado nombre del comando
              * Hace un dado o una diana
              */
-            command("diceAsDartboard") {
+            command("dicedsdartboard") {
                 bot.sendDice(ChatId.fromId(message.chat.id), DiceEmoji.Dartboard)
             }
             //cuando reenvias la diana a el bot por privado te devuelve la puntiacion
