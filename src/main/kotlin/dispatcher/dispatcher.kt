@@ -160,162 +160,151 @@ fun main() {
                  */
                 //sirve para crear dos botones
 
-                command("inlinebuttons") {
-                    val inlineKeyboardMarkup = InlineKeyboardMarkup.create(
-                        //text es el texto que aparece en el boton
-                        //callbackData Retoena el callbackQuery asociado (linea de codigo )
-                        listOf(InlineKeyboardButton.CallbackData(text = "Touchez moi", callbackData = "Monsieur!!")),
-                        //text es el texto que aparece en el boton
-                        //callbackData Retoena el callbackQuery asociado (linea de codigo )
-                        listOf(
-                            InlineKeyboardButton.CallbackData(
-                                text = "Bonjour",
-                                callbackData = "Lo que paso en Notre Dame, es merecido"
-                            )
-                        )
-                    )
-                    bot.sendMessage(
-                        chatId = ChatId.fromId(message.chat.id),
-                        text = "Touchez moi, oui oui baguette ",
-                        replyMarkup = inlineKeyboardMarkup
-                    )
-                }
-                /**
-                 * @param f Nombre del comando del bot
-                 * Este comando retorna un  texto y dos botones situados en donde el usuario puede escribir
-                 */
-                /*
+            command("inlineButtons") {
+                val inlineKeyboardMarkup = InlineKeyboardMarkup.create(
+                    //text texto del boton
+                    listOf(InlineKeyboardButton.CallbackData(text = "Test Inline Button", callbackData = "testButton")),
+                    listOf(InlineKeyboardButton.CallbackData(text = "Show alert", callbackData = "showAlert"))
+                )
+                bot.sendMessage(
+                    chatId = ChatId.fromId(message.chat.id),
+                    text = "Hello, inline buttons!",
+                    replyMarkup = inlineKeyboardMarkup
+                )
+            }
+            /**
+             * @param f Nombre del comando del bot
+             * Este comando retorna un  texto y dos botones situados en donde el usuario puede escribir
+             */
+            /*
             Envia tu direccion y número de teléfono, lamentablemente no lo hace n grupos, lo cual sería util para identificar y encontrar a los franceses que se escapan o se ocultan
             */
 
-                command("userbuttons") {
-                    val keyboardMarkup = KeyboardReplyMarkup(keyboard = generateUsersButton(), resizeKeyboard = true)
-                    bot.sendMessage(
-                        chatId = ChatId.fromId(message.chat.id),
-                        text = "Hello, users buttons!",
-                        replyMarkup = keyboardMarkup
-                    )
-                }
-                /**
-                 * @param mediagroup Nombre del comando del bot
-                 * Este comando retorna un texto y fotos
-                 */
-                //Poder mandar fotos con el bot
+            command("userButtons") {
+                val keyboardMarkup = KeyboardReplyMarkup(keyboard = generateUsersButton(), resizeKeyboard = true)
+                bot.sendMessage(
+                    chatId = ChatId.fromId(message.chat.id),
+                    text = "Hello, users buttons!",
+                    replyMarkup = keyboardMarkup
+                )
+            }
+            /**
+             * @param mediagroup Nombre del comando del bot
+             * Este comando retorna un texto y fotos
+             */
+            //Poder mandar fotos con el bot
 
-                command("mediagroup") {
-                    bot.sendMediaGroup(
-                        chatId = ChatId.fromId(message.chat.id),
-                        mediaGroup = MediaGroup.from(
-                            InputMediaPhoto(
-                                media = ByUrl("https://www.sngular.com/wp-content/uploads/2019/11/Kotlin-Blog-1400x411.png"),
-                                caption = "I come from an url :P"
-                            ),
-                            InputMediaPhoto(
-                                media = ByUrl("https://www.sngular.com/wp-content/uploads/2019/11/Kotlin-Blog-1400x411.png"),
-                                caption = "Me too!"
-                            )
+            command("mediaGroup") {
+                bot.sendMediaGroup(
+                    chatId = ChatId.fromId(message.chat.id),
+                    mediaGroup = MediaGroup.from(
+                        InputMediaPhoto(
+                            media = ByUrl("https://www.sngular.com/wp-content/uploads/2019/11/Kotlin-Blog-1400x411.png"),
+                            caption = "I come from an url :P"
                         ),
-                        replyToMessageId = message.messageId
-                    )
-                }
-                /**
-                 * @param quesepassetil Es el texto que aparece en el collbackData del boton asociado
-                 * Retorna el callbackQuery
-                 */
-                //debe coincidir con el texto que se le ponga al boton EN callbackData
-
-                callbackQuery("quesepassetil") {
-                    val chatId = callbackQuery.message?.chat?.id ?: return@callbackQuery
-                    bot.sendMessage(ChatId.fromId(chatId), callbackQuery.data)
-                }
-                /**
-                 * @param alerta Es el texto que aparece en el collbackData del boton asociado
-                 * Retorna el callbackQuery
-                 */
-
-                callbackQuery(
-                    callbackData = "alerta",
-                    callbackAnswerText = "Gabacho detectado, repito, gabacho detectado, código azul-blanco-rojo ",
-                    callbackAnswerShowAlert = true
-                ) {
-                    val chatId = callbackQuery.message?.chat?.id ?: return@callbackQuery
-                    bot.sendMessage(ChatId.fromId(chatId), callbackQuery.data)
-                }
-
-                text("Sin piernas, ni brazos") {
-                    bot.sendMessage(chatId = ChatId.fromId(message.chat.id), text = "Gabachos a pedazos!!!")
-                }
-
-                //te devuelve la latituid y longitud de te localizacion
-                location {
-                    bot.sendMessage(
-                        chatId = ChatId.fromId(message.chat.id),
-                        text = "Your location is (${location.latitude}, ${location.longitude})",
-                        replyMarkup = ReplyKeyboardRemove()
-                    )
-                }
-
-                //devuelve un mensaje de texto con tu nombre
-                contact {
-                    bot.sendMessage(
-                        chatId = ChatId.fromId(message.chat.id),
-                        text = "Hello, ${contact.firstName} ${contact.lastName}",
-                        replyMarkup = ReplyKeyboardRemove()
-                    )
-                }
-
-                channel {
-                    // Handle channel update
-                }
-
-                inlineQuery {
-                    val queryText = inlineQuery.query
-
-                    if (queryText.isBlank() or queryText.isEmpty()) return@inlineQuery
-
-                    val inlineResults = (0 until 5).map {
-                        InlineQueryResult.Article(
-                            id = it.toString(),
-                            title = "$it. $queryText",
-                            inputMessageContent = InputMessageContent.Text("$it. $queryText"),
-                            description = "Add $it. before you word"
+                        InputMediaPhoto(
+                            media = ByUrl("https://www.sngular.com/wp-content/uploads/2019/11/Kotlin-Blog-1400x411.png"),
+                            caption = "Me too!"
                         )
-                    }
-                    bot.answerInlineQuery(inlineQuery.id, inlineResults)
-                }
+                    ),
+                    replyToMessageId = message.messageId
+                )
+            }
+            /**
+             * @param quesepassetil Es el texto que aparece en el collbackData del boton asociado
+             * Retorna el callbackQuery
+             */
+            //debe coincidir con el texto que se le ponga al boton EN callbackData
 
-                photos {
-                    bot.sendMessage(
-                        chatId = ChatId.fromId(message.chat.id),
-                        text = "No será ese de ahí francés no?"
+            callbackQuery("quesepassetil") {
+                val chatId = callbackQuery.message?.chat?.id ?: return@callbackQuery
+                bot.sendMessage(ChatId.fromId(chatId), callbackQuery.data)
+            }
+            /**
+             * @param alerta Es el texto que aparece en el collbackData del boton asociado
+             * Retorna el callbackQuery
+             */
+
+            callbackQuery(
+                callbackData = "alerta",
+                callbackAnswerText = "Gabacho detectado, repito, gabacho detectado, código azul-blanco-rojo ",
+                callbackAnswerShowAlert = true
+            ) {
+                val chatId = callbackQuery.message?.chat?.id ?: return@callbackQuery
+                bot.sendMessage(ChatId.fromId(chatId), callbackQuery.data)
+            }
+
+            text("Sin piernas, ni brazos") {
+                bot.sendMessage(chatId = ChatId.fromId(message.chat.id), text = "Gabachos a pedazos!!!")
+            }
+
+            //te devuelve la latituid y longitud de te localizacion
+            location {
+                bot.sendMessage(
+                    chatId = ChatId.fromId(message.chat.id),
+                    text = "Your location is (${location.latitude}, ${location.longitude})",
+                    replyMarkup = ReplyKeyboardRemove()
+                )
+            }
+
+            //devuelve un mensaje de texto con tu nombre
+            contact {
+                bot.sendMessage(
+                    chatId = ChatId.fromId(message.chat.id),
+                    text = "Hello, ${contact.firstName} ${contact.lastName}",
+                    replyMarkup = ReplyKeyboardRemove()
+                )
+            }
+
+            channel {
+                // Handle channel update
+            }
+
+            inlineQuery {
+                val queryText = inlineQuery.query
+
+                if (queryText.isBlank() or queryText.isEmpty()) return@inlineQuery
+
+                val inlineResults = (0 until 5).map {
+                    InlineQueryResult.Article(
+                        id = it.toString(),
+                        title = "$it. $queryText",
+                        inputMessageContent = InputMessageContent.Text("$it. $queryText"),
+                        description = "Add $it. before you word"
                     )
                 }
+                bot.answerInlineQuery(inlineQuery.id, inlineResults)
+            }
 
-                /**
-                 * @param dado nombre del comando
-                 * Hace un dado o una diana
-                 */
-                command("diceasdartboard") {
-                    bot.sendDice(ChatId.fromId(message.chat.id), DiceEmoji.Dartboard)
-                }
-                //cuando reenvias la diana a el bot por privado te devuelve la puntiacion
+            photos {
+                bot.sendMessage(
+                    chatId = ChatId.fromId(message.chat.id),
+                    text = "No será ese de ahí francés no?"
+                )
+            }
 
-                dice {
-                    bot.sendMessage(
-                        ChatId.fromId(message.chat.id),
-                        "A dice ${dice.emoji.emojiValue} with value ${dice.value} has been received!"
-                    )
-                }
+            /**
+             * @param dado nombre del comando
+             * Hace un dado o una diana
+             */
+            command("diceAsDartboard") {
+                bot.sendDice(ChatId.fromId(message.chat.id), DiceEmoji.Dartboard)
+            }
+            //cuando reenvias la diana a el bot por privado te devuelve la puntiacion
 
-                //Cuando salga un error saltará un mensaje
-                telegramError {
-                    println(error.getErrorMessage())
-                }
+            dice {
+                bot.sendMessage(ChatId.fromId(message.chat.id), "A dice ${dice.emoji.emojiValue} with value ${dice.value} has been received!")
+            }
+
+            //Cuando salga un error saltará un mensaje
+            telegramError {
+                println(error.getErrorMessage())
             }
         }
-
-        bot.startPolling()
     }
+
+    bot.startPolling()
+}
 
 fun generateUsersButton(): List<List<KeyboardButton>> {
     return listOf(
