@@ -1,3 +1,8 @@
-fun main(args: Array<String>) {
-    println("Hello World!")
+import dispatcher.dispatcher
+import polls.polls
+
+fun main() {
+    val dispatcher= dispatcher()
+
+    val polls= polls()
 }
